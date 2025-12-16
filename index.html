@@ -1,339 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MANDABUSKA | Peripheral arts in Freiburg</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MANDABUSKA</title>
   <style>
-    :root {
-      --bg: #0b0c10;
-      --panel: rgba(16, 17, 26, 0.9);
-      --card: #11131f;
-      --accent: #f97316;
-      --accent-2: #facc15;
+    :root{
+      --bg: #000000;
       --text: #f7f8fb;
       --muted: #a7acba;
-      --border: rgba(255,255,255,0.08);
-      --glow: rgba(249,115,22,0.18);
+      --border: rgba(255,255,255,0.16);
+      --accent: #f97316;
+      --accent-2: #ffffff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *{ box-sizing:border-box; margin:0; padding:0; }
 
-    body {
+    body{
       font-family: 'Bebas Neue', 'Barlow Condensed', 'Montserrat', 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at 20% 20%, rgba(249,115,22,0.12), transparent 30%),
-                  radial-gradient(circle at 80% 0%, rgba(250,204,21,0.12), transparent 32%),
-                  linear-gradient(160deg, #05060c 0%, #0b0c10 50%, #0a0b12 100%);
       color: var(--text);
       min-height: 100vh;
-      padding: 32px 18px 56px;
-      display: flex;
-      justify-content: center;
+      background: var(--bg); /* solid black only */
+      padding: 28px 18px 56px;
+      display:flex;
+      justify-content:center;
     }
 
-    .page {
-      width: 100%;
-      max-width: 1080px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
+    .page{
+      width:100%;
+      max-width:1080px;
+      display:flex;
+      flex-direction:column;
+      gap:28px;
     }
 
-    .hero {
-      position: relative;
-      overflow: hidden;
-      border-radius: 28px;
-      padding: 26px;
-      background: linear-gradient(135deg, rgba(17,24,39,0.9), rgba(5,6,12,0.95));
-      border: 1px solid var(--border);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    /* ===== HERO (NO BLOCKS) ===== */
+    .hero{ background:transparent; border:0; box-shadow:none; padding:0; }
+    .hero-media{ display:grid; place-items:center; }
+    .hero-image{
+      width:100%;
+      max-width:740px;
+      height:auto;
+      display:block;
+      border:0;
+      border-radius:0;
+      box-shadow:none;
     }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 25% 30%, var(--glow), transparent 35%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-      align-items: center;
-      z-index: 1;
-    }
-
-    .kicker {
-      font-size: 13px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    h1 {
-      font-size: clamp(38px, 6vw, 62px);
-      letter-spacing: 0.08em;
-      line-height: 1.05;
-    }
-
-    .subtitle {
-      font-size: 17px;
-      line-height: 1.4;
-      color: #e8eaf2;
-      margin-top: 8px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    .hero-subtitle{
       margin-top: 14px;
-    }
-
-    .pill {
-      border: 1px solid var(--border);
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(249,115,22,0.8);
-      background: linear-gradient(135deg, rgba(249,115,22,0.9), rgba(250,204,21,0.9));
-      color: #0b0c10;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-decoration: none;
-      box-shadow: 0 12px 40px rgba(249,115,22,0.4);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 50px rgba(249,115,22,0.5);
-    }
-
-    .logo-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .logo {
-      width: 100%;
-      max-width: 340px;
-      filter: drop-shadow(0 18px 40px rgba(0,0,0,0.55));
-      mix-blend-mode: screen;
-    }
-
-    .section {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 20px 18px;
-      box-shadow: 0 18px 60px rgba(0,0,0,0.45);
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: 16px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .events-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .event-card {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-      padding: 16px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(17,24,39,0.9), rgba(17,17,27,0.85));
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .event-title {
-      font-size: 22px;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-    }
-
-    .event-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .badge {
-      padding: 4px 9px;
-      border-radius: 10px;
-      border: 1px solid rgba(249,115,22,0.5);
-      background: rgba(249,115,22,0.12);
-      color: #ffd7b0;
-      font-size: 12px;
-    }
-
-    .lineup {
-      list-style: none;
-      display: grid;
-      gap: 6px;
+      text-align:center;
       font-size: 14px;
-      color: #e8eaf2;
+      line-height: 1.45;
+      color: var(--muted);
+      letter-spacing: 0.02em;
     }
 
-    .lineup strong { color: var(--accent-2); letter-spacing: 0.06em; }
-
-    .flyer {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 16px 50px rgba(0,0,0,0.65);
+    .hero-buttons-below{
+      margin-top: 12px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    .split {
-      display: grid;
+    .icon-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: transparent; /* no filled block */
+      color:#fff;
+      text-decoration:none;
+      font-size:13px;
+      letter-spacing:0.02em;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .icon-btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.06); /* subtle hover only */
+    }
+    .icon{ width:18px; height:18px; display:block; color:currentColor; }
+
+    /* ===== SECTIONS (NO CARDS) ===== */
+    .section{ background:transparent; border:0; box-shadow:none; padding:0; }
+
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:14px;
+      padding-top:10px;
+      border-top:1px solid rgba(255,255,255,0.10);
+    }
+
+    .section-title{
+      font-size:16px;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    .pill{
+      border:1px solid rgba(255,255,255,0.16);
+      padding:7px 12px;
+      border-radius:999px;
+      background: transparent; /* no filled block */
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+    }
+
+    /* ===== EVENTS ===== */
+    .events-grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+
+    .event-card{
+      background:transparent;
+      border:0;
+      box-shadow:none;
+      padding:0;
+      display:grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      align-items: start;
+      gap:18px;
+      align-items:start;
     }
 
-    .text-block {
-      display: grid;
-      gap: 10px;
-      color: #e8eaf2;
-      line-height: 1.55;
-      font-size: 15px;
+    .event-title{ font-size:24px; letter-spacing:0.06em; margin-bottom:8px; }
+
+    .event-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:12px;
     }
 
-    .form {
-      display: grid;
-      gap: 12px;
-      margin-top: 10px;
+    .badge{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(249,115,22,0.55);
+      background: transparent; /* no filled block */
+      color:#ffd7b0;
+      font-size:14px;
     }
 
-    .form-grid {
-      display: grid;
+    .lineup{
+      list-style:none;
+      display:grid;
+      gap:7px;
+      font-size:14px;
+      color:#e8eaf2;
+      margin-bottom:10px;
+    }
+    .lineup strong{ color: var(--accent-2); letter-spacing:0.06em; }
+
+    .flyer{
+      width:100%;
+      display:block;
+      border:0;
+      border-radius:0;
+      box-shadow:none;
+    }
+
+    /* ===== ABOUT / FORM ===== */
+    .split{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
+      align-items:start;
+    }
+
+    .text-block{
+      display:grid;
+      gap:10px;
+      color:#e8eaf2;
+      line-height:1.55;
+      font-size:15px;
+    }
+
+    .form{ display:grid; gap:12px; margin-top:10px; }
+
+    .form-grid{
+      display:grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
+      gap:12px;
     }
 
-    label {
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--muted);
+    label{
+      font-size:13px;
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
 
-    input, select {
-      margin-top: 6px;
-      width: 100%;
-      padding: 11px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: #0f111a;
+    input, select{
+      margin-top:6px;
+      width:100%;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.18);
+      background: transparent; /* no filled block */
       color: var(--text);
-      font-size: 14px;
+      font-size:14px;
+      outline:none;
     }
 
-    input:focus, select:focus {
-      outline: 2px solid rgba(249,115,22,0.55);
-      border-color: rgba(249,115,22,0.4);
+    input:focus, select:focus{
+      outline:2px solid rgba(249,115,22,0.45);
+      border-color: rgba(249,115,22,0.35);
     }
 
-    .btn-submit {
-      justify-self: start;
-      padding: 11px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: linear-gradient(135deg, rgba(17,24,39,0.95), rgba(17,24,39,0.85));
+    .btn-submit{
+      justify-self:start;
+      padding:11px 16px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.18);
+      background: transparent; /* no filled block */
       color: var(--text);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+      font-weight:700;
+      letter-spacing:0.02em;
+      cursor:pointer;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
     }
 
-    .btn-submit:hover {
+    .btn-submit:hover{
       transform: translateY(-1px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      border-color: rgba(249,115,22,0.6);
+      border-color: rgba(249,115,22,0.55);
+      background: rgba(255,255,255,0.06);
     }
-
-    .footer {
-      text-align: center;
+    .event-location{
       color: var(--muted);
-      font-size: 13px;
-      margin-top: 8px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.15s ease;
     }
 
-    @media (min-width: 960px) {
-      body { padding-top: 44px; }
-      .hero { padding: 34px; }
+    .event-location:hover{
+      color: var(--accent-2);
+    }
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      margin-top:8px;
+    }
+
+    @media (min-width: 960px){
+      body{ padding-top:40px; }
     }
   </style>
 </head>
+
 <body>
   <main class="page">
     <section class="hero">
-      <div class="hero-content">
-        <div>
-          <div class="kicker">Brazilian art collective in Freiburg</div>
-          <h1>MANDABUSKA</h1>
-          <p class="subtitle">We spread and strengthen Brazilian peripheral arts in Freiburg, focusing on music and other expressions like visual, plastic, and performing arts.</p>
-          <div class="hero-actions">
-            <span class="pill">music | visual arts | performing</span>
-            <span class="pill">peripheral cultures</span>
-            <a class="cta" href="https://chat.whatsapp.com/IOJDQmLVs2N5N30SDc8RRS" target="_blank" rel="noopener noreferrer">Join the WhatsApp community</a>
-          </div>
-        </div>
-        <div class="logo-wrap">
-          <img class="logo" src="images/MB-keller.png" alt="Mandabuska Keller logo">
-        </div>
+      <div class="hero-media">
+        <img class="hero-image" src="images/logo-MB.svg" alt="Mandabuska logo" />
+      </div>
+
+      <p class="hero-subtitle">Künstler*innenkollektiv mit Sitz in Freiburg, Deutschland</p>
+
+      <div class="hero-buttons-below">
+        <a class="icon-btn"
+           href="https://chat.whatsapp.com/IOJDQmLVs2N5N30SDc8RRS"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Join WhatsApp community">
+          <svg viewBox="0 0 24 24" class="icon" aria-hidden="true">
+            <path fill="currentColor" d="M12.04 2C6.58 2 2.15 6.33 2.15 11.7c0 2.1.72 4.04 1.93 5.6L3 22l4.86-1.27c1.49.8 3.2 1.26 5.06 1.26 5.46 0 9.89-4.33 9.89-9.7C22.81 6.33 18.38 2 12.04 2zm5.73 13.87c-.24.67-1.37 1.27-1.9 1.35-.52.08-1.16.12-1.87-.12-.43-.14-.98-.32-1.68-.63-2.95-1.26-4.88-4.27-5.03-4.47-.15-.2-1.2-1.56-1.2-2.98 0-1.42.76-2.12 1.03-2.41.27-.29.6-.36.8-.36h.57c.18 0 .43-.06.67.5.24.56.8 1.95.87 2.09.07.14.12.31.02.5-.1.19-.15.31-.3.48-.15.17-.32.37-.46.49-.15.12-.3.26-.13.51.17.26.76 1.22 1.64 1.98 1.13.97 2.08 1.27 2.34 1.41.26.14.42.12.58-.07.16-.19.67-.77.85-1.03.18-.26.36-.22.6-.14.24.08 1.52.7 1.78.83.26.14.43.2.49.31.06.11.06.64-.18 1.31z"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
+
+        <a class="icon-btn"
+           href="https://www.instagram.com/mandabuska?igsh=MWdocXp5bHJrdG1hdA=="
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Open Instagram">
+          <svg viewBox="0 0 24 24" class="icon" aria-hidden="true">
+            <path fill="currentColor" d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5z"/>
+            <path fill="currentColor" d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+            <path fill="currentColor" d="M17.5 6.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
       </div>
     </section>
 
     <section class="section" id="eventos">
       <div class="section-header">
-        <h2 class="section-title">Upcoming events</h2>
-        <div class="pill">live</div>
+        <h2 class="section-title">Events</h2>
+        <div class="pill">DJ Session</div>
       </div>
 
       <div class="events-grid">
         <article class="event-card">
           <div>
-            <div class="event-title">Mandabuska Keller</div>
+            <div class="event-title">19.Dez - MANDABUSKA Keller</div>
             <div class="event-meta">
-              <span class="badge">19.12 - 22h-04h</span>
-              <span>Ruefetto - Granatgaessle 3, 79102 Freiburg im Breisgau</span>
+              <span class="event-meta">22h-04h - </span>
+              <a
+                class="event-location"
+                href="https://www.google.com/maps/search/?api=1&query=Granatgaessle+3,+79102+Freiburg+im+Breisgau"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ruefetto - Granatgaessle 3, 79102 Freiburg im Breisgau
+              </a>
             </div>
+
             <ul class="lineup">
               <li><strong>22:00</strong> Ben-J - Hip-Hop</li>
               <li><strong>23:00</strong> MaisumDJ - Afrohouse</li>
@@ -341,10 +320,12 @@
               <li><strong>01:30</strong> D3D4 - TechFunk</li>
               <li><strong>03:00</strong> b.god - Techno</li>
             </ul>
-            <p class="en">Doors: 22h | Hip-Hop, Afrohouse, Funk Bass, TechFunk, Techno. Underground night in Freiburg.</p>
+
+            <p class="event-meta">Doors: 22h | Hip-Hop, Afrohouse, Funk Bass, TechFunk, Techno.</p>
           </div>
+
           <div>
-            <img class="flyer" src="images/flyer_llds_qr.jpg" alt="Mandabuska Keller flyer with full lineup and QR code">
+            <img class="flyer" src="images/flyer_mbk.jpeg" alt="Mandabuska Keller flyer with full lineup and QR code" />
           </div>
         </article>
       </div>
@@ -352,69 +333,40 @@
 
     <section class="section" id="sobre">
       <div class="section-header">
-        <h2 class="section-title">About the collective</h2>
-        <div class="pill">mission</div>
+        <h2 class="section-title">Über das Kollektiv</h2>
+        <div class="pill">Unsere Mission</div>
       </div>
+
       <div class="split">
+        <!-- <div class="text-block">
+          <strong>pt-br</strong>
+          <p>Fomentamos e criamos espaço para que artistas possam mostrar e desenvolver suas artes em Freiburg e região. A música é o nosso ponto de partida, mas não o único caminho. Também abrimos espaço para todas as expressões artísticas. Criamos ambientes de criação, troca e reconhecimento, onde artistas independentes podem se expressar, se conectar e ser vistos. Nosso trabalho é dar voz ao que costuma ser silenciado, construir pontes com a cena cultural local e afirmar que a arte periférica brasileira existe, resiste e transforma.</p>
+        </div> -->
+
         <div class="text-block">
-          <strong>Mission (short)</strong>
-          <p>We spread and strengthen Brazilian peripheral arts in Freiburg, focusing on music and other expressions like visual, plastic, and performing arts.</p>
-        </div>
-        <div class="text-block">
-          <strong>Mission (long)</strong>
-          <p>The collective exists to showcase and amplify Brazilian peripheral arts, centered on music while embracing visual, plastic, and performing arts. We create spaces for making, exchange, and cultural appreciation, helping independent artists connect with the Freiburg scene.</p>
+          <strong></strong>
+          <p>Wir fördern und schaffen Raum, damit Künstlerinnen ihre Kunst in Freiburg und der Region zeigen und weiterentwickeln können. Musik ist unser Ausgangspunkt, aber nicht der einzige Weg. Wir öffnen auch Raum für alle künstlerischen Ausdrucksformen. Wir schaffen Orte für Kreativität, Austausch und Anerkennung, an denen unabhängige Künstlerinnen sich ausdrücken, vernetzen und sichtbar werden können. Unsere Arbeit gibt dem eine Stimme, was oft zum Schweigen gebracht wird, baut Brücken zur lokalen Kulturszene und zeigt: brasilianische periphere Kunst existiert, widersetzt sich und verändert.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="participar">
       <div class="section-header">
-        <h2 class="section-title">Join the collective</h2>
-        <div class="pill">apply</div>
+        <h2 class="section-title">Werde Teil des Kollektivs</h2>
+        <div class="pill">Jetzt bewerben</div>
       </div>
+
       <div class="text-block">
-        <p>Fill out the form to collaborate through music, visual, plastic, or performing arts.</p>
+        <p>
+          Hast du Interesse, Teil davon zu sein? Ob als Künstler*in oder in der Organisation – du bist herzlich willkommen.
+          Nimm direkt Kontakt mit einem unserer Mitglieder auf oder schreib uns eine E-Mail an
+          <a href="mailto:bgod_creaction@gmail.com" class="event-location">bgod_creaction@gmail.com</a>.
+        </p>
       </div>
-      <form class="form" action="#" method="post">
-        <div class="form-grid">
-          <div>
-            <label for="nome">Name</label>
-            <input id="nome" name="nome" type="text" placeholder="Your full name" required>
-          </div>
-          <div>
-            <label for="nome-artistico">Artist name</label>
-            <input id="nome-artistico" name="nome_artistico" type="text" placeholder="Stage/artist name">
-          </div>
-          <div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="you@email.com" required>
-          </div>
-          <div>
-            <label for="telefone">Phone</label>
-            <input id="telefone" name="telefone" type="tel" placeholder="+49...">
-          </div>
-          <div>
-            <label for="site">Website</label>
-            <input id="site" name="site" type="url" placeholder="https://">
-          </div>
-          <div>
-            <label for="tipo-arte">Art focus</label>
-            <select id="tipo-arte" name="tipo_arte" required>
-              <option value="">Select</option>
-              <option>DJ / Music</option>
-              <option>Music production</option>
-              <option>Visual arts</option>
-              <option>Plastic arts</option>
-              <option>Performing arts</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn-submit" type="submit">Send</button>
-      </form>
+
     </section>
 
-    <p class="footer">Update the WhatsApp link and connect your socials to share booking and news.</p>
+    <p class="footer">Aktualisiere den WhatsApp-Link und verbinde deine Social-Media-Kanäle, um Bookings und Neuigkeiten zu teilen.</p>
   </main>
 </body>
 </html>
